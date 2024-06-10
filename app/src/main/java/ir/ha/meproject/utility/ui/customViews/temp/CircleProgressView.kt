@@ -18,6 +18,13 @@ class CircleProgressView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
+
+    interface OnProgressChangedListener {
+        fun onProgressChanged(progress: Int)
+    }
+
+    private var progressChangedListener: OnProgressChangedListener? = null
+
     private var progress: Int = 0
     private var maxProgress: Int = 100
     private val circlePaint = Paint(Paint.ANTI_ALIAS_FLAG)
@@ -94,6 +101,7 @@ class CircleProgressView @JvmOverloads constructor(
     fun lowProgress(duration: Long = 300) {
         if (progress > 0) {
             animateProgress(progress - 1, duration)
+            progressChangedListener?.onProgressChanged(progress - 1)
         }
     }
 
@@ -101,6 +109,12 @@ class CircleProgressView @JvmOverloads constructor(
         if (progress < 100) {
             animateProgress(progress + 1, duration)
         }
+        progressChangedListener?.onProgressChanged(progress + 1)
+    }
+
+
+    fun setOnProgressChangedListener(listener: OnProgressChangedListener) {
+        progressChangedListener = listener
     }
 
     override fun onDraw(canvas: Canvas) {

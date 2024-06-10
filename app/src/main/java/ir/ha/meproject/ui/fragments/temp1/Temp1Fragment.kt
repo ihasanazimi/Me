@@ -4,7 +4,9 @@ import android.graphics.Color
 import ir.ha.meproject.R
 import ir.ha.meproject.databinding.FragmentTemp1Binding
 import ir.ha.meproject.utility.base.BaseFragment
+import ir.ha.meproject.utility.extensions.showToast
 import ir.ha.meproject.utility.extensions.singleClick
+import ir.ha.meproject.utility.ui.customViews.temp.CircleProgressView
 
 class Temp1Fragment : BaseFragment<FragmentTemp1Binding>(FragmentTemp1Binding::inflate) {
 
@@ -13,15 +15,11 @@ class Temp1Fragment : BaseFragment<FragmentTemp1Binding>(FragmentTemp1Binding::i
 
 
         binding.progress.setProgress(64,true)
-
-
-        binding.add.singleClick {
-            binding.progress.addProgress()
-        }
-
-        binding.low.singleClick {
-            binding.progress.lowProgress()
-        }
+        binding.progress.setOnProgressChangedListener(object : CircleProgressView.OnProgressChangedListener{
+            override fun onProgressChanged(progress: Int) {
+                showToast(requireContext(),progress.toString())
+            }
+        })
 
     }
 
