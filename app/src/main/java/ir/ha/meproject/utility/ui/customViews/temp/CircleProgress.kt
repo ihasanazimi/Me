@@ -30,12 +30,12 @@ class CircleProgress @JvmOverloads constructor(
     private val circlePaint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val textPaint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val circleBounds = RectF()
-    private val defaultSize = 200f // Default size if no constraints are provided
+    private val defaultSize = 150f // Default size if no constraints are provided
 
     private var activeProgressTintColor = ContextCompat.getColor(context, android.R.color.holo_blue_light)
     private var progressTintColor = ContextCompat.getColor(context, android.R.color.darker_gray)
     private var progressTextColor = ContextCompat.getColor(context, android.R.color.holo_blue_light)
-    private var progressTextSize : Float= 30f
+    private var progressTextSize : Float= 33f
     private var progressTypeFace = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
     private var animatedProgressText: String = "0%"
 
