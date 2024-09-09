@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -13,9 +14,16 @@
 
 
     <ir.ha.meproject.utility.ui.customViews.temp.LoadingButton
-        android:id="@+id/loadingButton"
-        android:layout_width="match_parent"
+        android:id="@+id/loadingBtn"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/space_16" />
+        app:loadingBtnTitle="Hi"
+        app:loadingBtnLoadingTitle="Loading..."
+        app:loadingBtnTextColor="@android:color/white"
+        app:loadingBtnIconTint="@android:color/white"
+        app:loadingBtnIconPadding="8dp"
+        app:loadingBtnGravity="center"
+        app:loadingBtnTextGravity="center"
+        app:loadingBtnIconGravity="start" />
 
 </LinearLayout>

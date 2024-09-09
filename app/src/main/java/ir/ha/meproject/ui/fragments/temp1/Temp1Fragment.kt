@@ -21,6 +21,16 @@ class Temp1Fragment : BaseFragment<FragmentTemp1Binding>(FragmentTemp1Binding::i
             }
         })
 
+
+
+        binding.loadingBtn.clickListener{
+            lifecycleScope.launch {
+                binding.loadingBtn.showLoading(true)
+                delay(3000)
+                binding.loadingBtn.showLoading(false)
+            }
+        }
+
     }
 
 
