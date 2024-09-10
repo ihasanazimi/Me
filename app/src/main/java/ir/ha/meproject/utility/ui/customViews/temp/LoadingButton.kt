@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.widget.RelativeLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import com.google.android.material.button.MaterialButton
 import ir.ha.meproject.R
 import ir.ha.meproject.databinding.LayoutLoadingButtonBinding
@@ -111,8 +112,9 @@ class LoadingButton(context: Context, attrs: AttributeSet?) : RelativeLayout(con
     }
 
     fun showLoading(show: Boolean) {
+        binding.progressBar.isVisible = show
         if (show) {
-            binding.btn.text = loadingTitle
+            binding.btn.text = /*loadingTitle*/ ""
             binding.btn.isEnabled = false
             textColor(ContextCompat.getColor(context,R.color.gray))
         } else {
