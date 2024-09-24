@@ -217,6 +217,9 @@ dependencies {
     implementation(libs.stetho.js.rhino)
 
 
+    testImplementation("org.mockito:mockito-core:3.11.2")
+
+
 
 
 }
