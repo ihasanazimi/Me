@@ -1,7 +1,8 @@
-package ir.ha.meproject
+package ir.ha.meproject.usecase
 
 
 import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.junit4.MockKRule
 import io.mockk.mockk
 import io.mockk.spyk
@@ -24,7 +25,7 @@ import kotlin.test.assertEquals
 
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class UserUseCaseTest {
+class UserUseCaseTest1 {
 
     private val testDispatcher = TestCoroutineDispatcher()
 
@@ -59,6 +60,9 @@ class UserUseCaseTest {
 
         val list = userUseCase.getAllUsers().first()
         assertEquals(mockUsers, list)
+
+
+        coVerify(exactly = 1) { userUseCase.getAllUsers() }
 
         // Advance coroutine until idle to ensure completion
         advanceUntilIdle()
@@ -112,6 +116,8 @@ class UserUseCaseTest2{
 
         val list = userUseCase.getAllUsers().first()
         assertEquals(mockUsers, list)
+
+        coVerify(exactly = 1) { userUseCase.getAllUsers() }
 
         // Advance coroutine until idle to ensure completion
         advanceUntilIdle()
