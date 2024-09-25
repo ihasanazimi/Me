@@ -71,6 +71,10 @@ class UserUseCaseTest1 {
         testDispatcher.cleanupTestCoroutines()
     }
 
+
+    /**
+     *  Correctness by spyk
+     */
     @Test
     fun `getAllUsers emits usersFlow with list of users`() = runTest {
 
@@ -98,6 +102,16 @@ class UserUseCaseTest1 {
 }
 
 
+
+
+
+
+
+
+
+/**
+ * Correctness by mockK
+ */
 @OptIn(ExperimentalCoroutinesApi::class)
 class UserUseCaseTest2 {
 
@@ -106,7 +120,6 @@ class UserUseCaseTest2 {
     @get:Rule
     val mockkRule = MockKRule(this)
 
-    //    private var userUseCase = spyk(UserUseCaseImpl(UserRepositoryImpl()))
     private var userUseCase = mockk<UserUseCaseImpl>()
 
     @Before
