@@ -4,7 +4,7 @@ import ir.ha.meproject.common.extensions.isValidPostalCode
 import org.junit.Assert.*
 import org.junit.Test
 
-class IsValidPostalCodeTest {
+class PostalCodeValidatorTest {
 
     @Test
     fun `postal code is valid when all rules are met`() {
