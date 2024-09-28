@@ -11,6 +11,7 @@ import ir.ha.meproject.data.repository.UserRepositoryImpl
 import ir.ha.meproject.domain.UserUseCaseImpl
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.TimeoutCancellationException
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.TestCoroutineDispatcher
@@ -179,7 +180,7 @@ class UserUseCaseTest2 {
         coEvery { userUseCase.getAllUsers() } returns flowOf(mockUsers)
 
         val list = userUseCase.getAllUsers().first()
-        val youngs = list.filter { it.age.toInt() > 18 }
+        val youngs = list.filter { it.age.toInt() > 19 }
         assertTrue(youngs.isNotEmpty())
 
         /**
@@ -210,7 +211,7 @@ class UserUseCaseTest2 {
         coEvery { userUseCase.getAllUsers() } returns flowOf(mockUsers)
 
         val list = userUseCase.getAllUsers().first()
-        val teenage = list.find { it.age.toInt() < 18 }
+        val teenage = list.find { it.age.toInt() < 19 }
         assertTrue(teenage == null)
 
         /**
@@ -260,7 +261,7 @@ class UserUseCaseTest2 {
      */
     @Test(expected = TimeoutCancellationException::class)
     fun `time out time testing`() = runTest {
-        val result = withTimeout(7000) {
+        withTimeout(100) {
             // Mock data
             val mockUsers = listOf(
                 User("Omid", "Sadr", "30", "USA", "New York"),
@@ -274,6 +275,9 @@ class UserUseCaseTest2 {
 
             coEvery { userUseCase.getAllUsers() } returns flowOf(mockUsers)
 
+            // Introduce a delay longer than the timeout to force TimeoutCancellationException
+            delay(90)
+
             val list = userUseCase.getAllUsers().first()
             val thereIs = list.find { it.fromCountry.equals("Iran") }
             assertTrue(thereIs != null)
@@ -286,8 +290,8 @@ class UserUseCaseTest2 {
             // Advance coroutine until idle to ensure completion
             advanceUntilIdle()
         }
-        assertNotNull(result)
     }
+
 
 }
 

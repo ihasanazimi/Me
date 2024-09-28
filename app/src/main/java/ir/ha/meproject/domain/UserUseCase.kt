@@ -13,9 +13,7 @@ interface UserUseCase {
 
 
 
-class UserUseCaseImpl @Inject constructor(
-    private val userRepository: UserRepository
-) : UserUseCase {
+class UserUseCaseImpl @Inject constructor(private val userRepository: UserRepository) : UserUseCase {
 
     override suspend fun getAllUsers() = userRepository.getAllUsers()
 
