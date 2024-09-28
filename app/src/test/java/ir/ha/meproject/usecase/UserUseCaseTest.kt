@@ -50,17 +50,12 @@ import kotlin.test.assertTrue
 class UserUseCaseTest1 {
 
     private val testDispatcher = TestCoroutineDispatcher()
-
     private var userUseCase = spyk(UserUseCaseImpl(UserRepositoryImpl()))
-
     private var mockUsers = arrayListOf<User>()
 
     @Before
     fun setUp() {
-        // Set Main dispatcher to TestCoroutineDispatcher
         kotlinx.coroutines.Dispatchers.setMain(testDispatcher)
-
-        // Mock data
         mockUsers.addAll(
             arrayListOf(
                 User("Omid", "Sadr", "30", "USA", "New York"),
@@ -82,25 +77,14 @@ class UserUseCaseTest1 {
         testDispatcher.cleanupTestCoroutines()
     }
 
-
-    /**
-     *  Correctness by spyk
-     */
+    /***  Correctness by spyk */
     @Test
     fun `getAllUsers emits usersFlow with list of users`() = runTest {
-
         val list = userUseCase.getAllUsers().first()
         assertEquals(mockUsers, list)
-
-        /**
-         * Method Calls
-         */
-        coVerify(exactly = 1) { userUseCase.getAllUsers() }
-
-        // Advance coroutine until idle to ensure completion
+        coVerify(exactly = 1) { userUseCase.getAllUsers() } /*** Method Calls*/
         advanceUntilIdle()
     }
-
 
 }
 
@@ -122,9 +106,7 @@ class UserUseCaseTest2 {
     val mockkRule = MockKRule(this)
 
     private val testDispatcher = TestCoroutineDispatcher()
-
     private var userUseCase = mockk<UserUseCaseImpl>()
-
     private var mockUsers = arrayListOf<User>()
 
     @Before
@@ -162,7 +144,6 @@ class UserUseCaseTest2 {
         assertEquals(mockUsers, list)
         /*** Method Calls*/
         coVerify(exactly = 1) { userUseCase.getAllUsers() }
-        // Advance coroutine until idle to ensure completion
         advanceUntilIdle()
     }
 
@@ -187,7 +168,6 @@ class UserUseCaseTest2 {
         assertTrue(teenage == null)
         /*** Method Calls*/
         coVerify(exactly = 1) { userUseCase.getAllUsers() }
-        // Advance coroutine until idle to ensure completion
         advanceUntilIdle()
     }
 
