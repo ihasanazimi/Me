@@ -25,7 +25,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
 
@@ -54,15 +53,31 @@ class UserUseCaseTest1 {
 
     private var userUseCase = spyk(UserUseCaseImpl(UserRepositoryImpl()))
 
+    private var mockUsers = arrayListOf<User>()
+
     @Before
     fun setUp() {
         // Set Main dispatcher to TestCoroutineDispatcher
         kotlinx.coroutines.Dispatchers.setMain(testDispatcher)
+
+        // Mock data
+        mockUsers.addAll(
+            arrayListOf(
+                User("Omid", "Sadr", "30", "USA", "New York"),
+                User("Pejman", "Pajoohi", "25", "Canada", "Toronto"),
+                User("Alireza", "Ganbari", "40", "Iran", "Tehran"),
+                User("Hasan", "Azimi", "35", "Iran", "Tehran"),
+                User("Sobhan", "Hasanvand", "32", "Japan", "Tokyo"),
+                User("Parsia", "Dolati", "45", "France", "Paris"),
+                User("Zahra", "Eslami", "32", "India", "Mumbai")
+            )
+        )
     }
 
     @After
     fun reset() {
         // Reset the dispatcher
+        mockUsers.clear()
         kotlinx.coroutines.Dispatchers.resetMain()
         testDispatcher.cleanupTestCoroutines()
     }
@@ -73,17 +88,6 @@ class UserUseCaseTest1 {
      */
     @Test
     fun `getAllUsers emits usersFlow with list of users`() = runTest {
-
-        // Mock data
-        val mockUsers = listOf(
-            User("Omid", "Sadr", "30", "USA", "New York"),
-            User("Pejman", "Pajoohi", "25", "Canada", "Toronto"),
-            User("Alireza", "Ganbari", "40", "Iran", "Tehran"),
-            User("Hasan", "Azimi", "35", "Iran", "Tehran"),
-            User("Sobhan", "Hasanvand", "32", "Japan", "Tokyo"),
-            User("Parsia", "Dolati", "45", "France", "Paris"),
-            User("Zahra", "Eslami", "32", "India", "Mumbai")
-        )
 
         val list = userUseCase.getAllUsers().first()
         assertEquals(mockUsers, list)
@@ -114,156 +118,21 @@ class UserUseCaseTest1 {
 @OptIn(ExperimentalCoroutinesApi::class)
 class UserUseCaseTest2 {
 
-    private val testDispatcher = TestCoroutineDispatcher()
-
     @get:Rule
     val mockkRule = MockKRule(this)
 
+    private val testDispatcher = TestCoroutineDispatcher()
+
     private var userUseCase = mockk<UserUseCaseImpl>()
+
+    private var mockUsers = arrayListOf<User>()
 
     @Before
     fun setUp() {
-        // Set Main dispatcher to TestCoroutineDispatcher
         kotlinx.coroutines.Dispatchers.setMain(testDispatcher)
-    }
-
-    @After
-    fun reset() {
-        // Reset the dispatcher
-        kotlinx.coroutines.Dispatchers.resetMain()
-        testDispatcher.cleanupTestCoroutines()
-    }
-
-    @Test
-    fun `getAllUsers emits usersFlow with list of users`() = runTest {
-
         // Mock data
-        val mockUsers = listOf(
-            User("Omid", "Sadr", "30", "USA", "New York"),
-            User("Pejman", "Pajoohi", "25", "Canada", "Toronto"),
-            User("Alireza", "Ganbari", "40", "Iran", "Tehran"),
-            User("Hasan", "Azimi", "35", "Iran", "Tehran"),
-            User("Sobhan", "Hasanvand", "32", "Japan", "Tokyo"),
-            User("Parsia", "Dolati", "45", "France", "Paris"),
-            User("Zahra", "Eslami", "32", "India", "Mumbai")
-        )
-
-        coEvery { userUseCase.getAllUsers() } returns flowOf(mockUsers)
-
-        val list = userUseCase.getAllUsers().first()
-        assertEquals(mockUsers, list)
-
-        /**
-         * Method Calls
-         */
-        coVerify(exactly = 1) { userUseCase.getAllUsers() }
-
-        // Advance coroutine until idle to ensure completion
-        advanceUntilIdle()
-    }
-
-
-    @Test
-    fun `Users should be Young`() = runTest {
-
-        // Mock data
-        val mockUsers = listOf(
-            User("Omid", "Sadr", "30", "USA", "New York"),
-            User("Pejman", "Pajoohi", "25", "Canada", "Toronto"),
-            User("Alireza", "Ganbari", "40", "Iran", "Tehran"),
-            User("Hasan", "Azimi", "35", "Iran", "Tehran"),
-            User("Sobhan", "Hasanvand", "32", "Japan", "Tokyo"),
-            User("Parsia", "Dolati", "45", "France", "Paris"),
-            User("Zahra", "Eslami", "32", "India", "Mumbai")
-        )
-
-        coEvery { userUseCase.getAllUsers() } returns flowOf(mockUsers)
-
-        val list = userUseCase.getAllUsers().first()
-        val youngs = list.filter { it.age.toInt() > 19 }
-        assertTrue(youngs.isNotEmpty())
-
-        /**
-         * Method Calls
-         */
-        coVerify(exactly = 1) { userUseCase.getAllUsers() }
-
-        // Advance coroutine until idle to ensure completion
-        advanceUntilIdle()
-
-    }
-
-
-    @Test
-    fun `Users should be child`() = runTest {
-
-        // Mock data
-        val mockUsers = listOf(
-            User("Omid", "Sadr", "30", "USA", "New York"),
-            User("Pejman", "Pajoohi", "25", "Canada", "Toronto"),
-            User("Alireza", "Ganbari", "40", "Iran", "Tehran"),
-            User("Hasan", "Azimi", "35", "Iran", "Tehran"),
-            User("Sobhan", "Hasanvand", "32", "Japan", "Tokyo"),
-            User("Parsia", "Dolati", "45", "France", "Paris"),
-            User("Zahra", "Eslami", "32", "India", "Mumbai")
-        )
-
-        coEvery { userUseCase.getAllUsers() } returns flowOf(mockUsers)
-
-        val list = userUseCase.getAllUsers().first()
-        val teenage = list.find { it.age.toInt() < 19 }
-        assertTrue(teenage == null)
-
-        /**
-         * Method Calls
-         */
-        coVerify(exactly = 1) { userUseCase.getAllUsers() }
-
-        // Advance coroutine until idle to ensure completion
-        advanceUntilIdle()
-
-    }
-
-
-    @Test
-    fun `There must be a user from Iran`() = runTest {
-
-        // Mock data
-        val mockUsers = listOf(
-            User("Omid", "Sadr", "30", "USA", "New York"),
-            User("Pejman", "Pajoohi", "25", "Canada", "Toronto"),
-            User("Alireza", "Ganbari", "40", "Iran", "Tehran"),
-            User("Hasan", "Azimi", "35", "Iran", "Tehran"),
-            User("Sobhan", "Hasanvand", "32", "Japan", "Tokyo"),
-            User("Parsia", "Dolati", "45", "France", "Paris"),
-            User("Zahra", "Eslami", "32", "India", "Mumbai")
-        )
-
-        coEvery { userUseCase.getAllUsers() } returns flowOf(mockUsers)
-
-        val list = userUseCase.getAllUsers().first()
-        val thereIs = list.find { it.fromCountry.equals("Iran") }
-        assertTrue(thereIs != null)
-
-        /**
-         * Method Calls
-         */
-        coVerify(exactly = 1) { userUseCase.getAllUsers() }
-
-        // Advance coroutine until idle to ensure completion
-        advanceUntilIdle()
-
-    }
-
-
-    /**
-     * Performance and Timeouts Test
-     */
-    @Test(expected = TimeoutCancellationException::class)
-    fun `time out time testing`() = runTest {
-        withTimeout(100) {
-            // Mock data
-            val mockUsers = listOf(
+        mockUsers.addAll(
+            arrayListOf(
                 User("Omid", "Sadr", "30", "USA", "New York"),
                 User("Pejman", "Pajoohi", "25", "Canada", "Toronto"),
                 User("Alireza", "Ganbari", "40", "Iran", "Tehran"),
@@ -272,22 +141,80 @@ class UserUseCaseTest2 {
                 User("Parsia", "Dolati", "45", "France", "Paris"),
                 User("Zahra", "Eslami", "32", "India", "Mumbai")
             )
+        )
+    }
 
+    @After
+    fun reset() {
+        // Reset the dispatcher
+        mockUsers.clear()
+        kotlinx.coroutines.Dispatchers.resetMain()
+        testDispatcher.cleanupTestCoroutines()
+    }
+
+
+
+
+    @Test
+    fun `getAllUsers emits usersFlow with list of users`() = runTest {
+        coEvery { userUseCase.getAllUsers() } returns flowOf(mockUsers)
+        val list = userUseCase.getAllUsers().first()
+        assertEquals(mockUsers, list)
+        /*** Method Calls*/
+        coVerify(exactly = 1) { userUseCase.getAllUsers() }
+        // Advance coroutine until idle to ensure completion
+        advanceUntilIdle()
+    }
+
+    @Test
+    fun `Users should be Young`() = runTest {
+        coEvery { userUseCase.getAllUsers() } returns flowOf(mockUsers)
+        val list = userUseCase.getAllUsers().first()
+        val youngs = list.filter { it.age.toInt() > 19 }
+        assertTrue(youngs.isNotEmpty())
+        /*** Method Calls*/
+        coVerify(exactly = 1) { userUseCase.getAllUsers() }
+        advanceUntilIdle()
+
+    }
+
+
+    @Test
+    fun `Users should be child`() = runTest {
+        coEvery { userUseCase.getAllUsers() } returns flowOf(mockUsers)
+        val list = userUseCase.getAllUsers().first()
+        val teenage = list.find { it.age.toInt() < 19 }
+        assertTrue(teenage == null)
+        /*** Method Calls*/
+        coVerify(exactly = 1) { userUseCase.getAllUsers() }
+        // Advance coroutine until idle to ensure completion
+        advanceUntilIdle()
+    }
+
+
+    @Test
+    fun `There must be a user from Iran`() = runTest {
+        coEvery { userUseCase.getAllUsers() } returns flowOf(mockUsers)
+        val list = userUseCase.getAllUsers().first()
+        val thereIs = list.find { it.fromCountry.equals("Iran") }
+        assertTrue(thereIs != null)
+        /** Method Calls */
+        coVerify(exactly = 1) { userUseCase.getAllUsers() }
+        advanceUntilIdle()
+    }
+
+
+    /*** Performance and Timeouts Test */
+    @Test(expected = TimeoutCancellationException::class)
+    fun `time out time testing`() = runTest {
+        withTimeout(100) {
             coEvery { userUseCase.getAllUsers() } returns flowOf(mockUsers)
-
-            // Introduce a delay longer than the timeout to force TimeoutCancellationException
-            delay(90)
-
+            delay(150)
             val list = userUseCase.getAllUsers().first()
             val thereIs = list.find { it.fromCountry.equals("Iran") }
             assertTrue(thereIs != null)
-
-            /**
-             * Method Calls
-             */
+            /*** Method Calls*/
             coVerify(exactly = 1) { userUseCase.getAllUsers() }
-
-            // Advance coroutine until idle to ensure completion
             advanceUntilIdle()
         }
     }
