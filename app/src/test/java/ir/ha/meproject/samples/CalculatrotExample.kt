@@ -9,7 +9,7 @@ import org.mockito.junit.MockitoJUnitRunner
 import kotlin.test.assertEquals
 
 class CalculatorExample ( val operators: Operators) {
-    fun addTwoNumbers(a: Int, b: Int): Int = Operators.addTwoInt(a, b)
+    fun addTwoNumbers(a: Int, b: Int): Int = operators.addTwoInt(a, b)
 }
 object Operators {
     fun addTwoInt(m: Int, n: Int): Int = m - n
