@@ -1,39 +1,46 @@
 package ir.ha.meproject.samples
 
+import io.mockk.spyk
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito
+import org.mockito.Mockito.mock
+import org.mockito.Mockito.spy
 import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
 import kotlin.test.assertEquals
 
-class CalculatorExample ( val operators: Operators) {
+class CalculatorExample (private val operators: Operators) {
     fun addTwoNumbers(a: Int, b: Int): Int = operators.addTwoInt(a, b)
 }
+
 object Operators {
-    fun addTwoInt(m: Int, n: Int): Int = m - n
+    fun addTwoInt(m: Int, n: Int): Int = m + n
 }
+
 
 
 @RunWith(MockitoJUnitRunner::class)
 class CalculatorExampleTest {
 
     lateinit var CE: CalculatorExample
-    lateinit var OP: Operators
+    var OP: Operators = Operators
 
     @Before
     fun onSetup() {
-        OP = Mockito.mock(Operators::class.java)
+//        OP = Mockito.mock(Operators::class.java)
         CE = CalculatorExample(OP)
     }
 
     @Test
     fun addTwoNumber_PrintValue() {
+
         val a = 100
         val b = 20
 
-        `when`(Operators.addTwoInt(a, b)).thenReturn(a + b)
+
+        `when`(OP.addTwoInt(a, b)).thenReturn(a + b)
 
         val result = CE.addTwoNumbers(a, b)
 
