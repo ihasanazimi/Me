@@ -16,7 +16,7 @@ class CalculatorExample (private val operators: Operators) {
 }
 
 object Operators {
-    fun addTwoInt(m: Int, n: Int): Int = m + n
+    fun addTwoInt(m: Int, n: Int): Int = m - n
 }
 
 
@@ -25,11 +25,11 @@ object Operators {
 class CalculatorExampleTest {
 
     lateinit var CE: CalculatorExample
-    var OP: Operators = Operators
+    lateinit var OP: Operators
 
     @Before
     fun onSetup() {
-//        OP = Mockito.mock(Operators::class.java)
+        OP = Mockito.mock(Operators::class.java)
         CE = CalculatorExample(OP)
     }
 

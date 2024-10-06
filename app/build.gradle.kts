@@ -22,10 +22,10 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-
-    tasks.withType<Test> {
-        useJUnitPlatform()
-    }
+//
+//    tasks.withType<Test> {
+//        useJUnitPlatform()
+//    }
 
 
 // Iterate over all application variants (e.g., debug, release)
