@@ -32,15 +32,44 @@ class StringHelperParameterTest0 (private val input: Int, private val expectedVa
         @JvmStatic
         @Parameterized.Parameters()
         fun data(): List<Array<Any>> {
-            repo = Mockito.spy(SampleRepositoryImpl())
-            useCase = Mockito.spy(SampleUseCaseImpl(repo))
-            return useCase.getNumberByAnswers()
+            return listOf(
+                arrayOf(-8,false),
+                arrayOf(8,true),
+                arrayOf(8,true),
+                arrayOf(8,true),
+                arrayOf(8,true),
+                arrayOf(8,true),
+                arrayOf(8,true),
+                arrayOf(8,true),
+                arrayOf(8,true),
+                arrayOf(8,true),
+                arrayOf(8,true),
+                arrayOf(8,true),
+                arrayOf(8,true),
+                arrayOf(8,true),
+            )
         }
+
+        @JvmStatic
+        @Parameterized.Parameters()
+        fun hasan(): List<Array<Any>> {
+            return listOf(
+                arrayOf(-1,false),
+                arrayOf(3,true),
+                arrayOf(1,true),
+                arrayOf(13,true)
+            )
+        }
+
+
+
     }
 
 
     @Test
     fun testParameterized_IsPositiveNumberOrNot() {
+        repo = Mockito.spy(SampleRepositoryImpl())
+        useCase = Mockito.spy(SampleUseCaseImpl(repo))
         val result = useCase.isPositiveNumber(input)
         println("result is $result")
         assertEquals(expectedValue,result)
