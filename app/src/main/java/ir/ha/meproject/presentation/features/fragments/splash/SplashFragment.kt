@@ -15,6 +15,8 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(FragmentSplashBinding
 
     private val viewModel by viewModels<SplashFragmentVM>()
 
+    private val byCountingIdlingResource : Boolean = false
+
     private val myIdlingResource by lazy { MyIdlingResource(TAG) }
     fun getIdlingResource() = myIdlingResource
 
@@ -24,44 +26,42 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(FragmentSplashBinding
     override fun uiConfig() {
         super.uiConfig()
 
-        // todo : uncomment this code for myIdlingResource concept
 
-        /*viewLifecycleOwner.lifecycleScope.launch {
+            if (byCountingIdlingResource) {
 
-            myIdlingResource.setIdleState(false)
-            delay(2000) // simulate to api call
-            myIdlingResource.setIdleState(true)
+                viewLifecycleOwner.lifecycleScope.launch {
+                    myCountingIdlingResource.increment()
+                    delay(2000) // simulate to api call
+                    myCountingIdlingResource.decrement()
+                    myCountingIdlingResource.increment()
+                    delay(2000) // simulate to loading
+                    findNavController().safeNavigate(SplashFragmentDirections.actionSplashFragmentToHomeFragment("Hasan")).also {
+                        myCountingIdlingResource.decrement()
+                    }
+                }
 
+            } else {
 
-            delay(4000) // simulate to preparation of data
-            myIdlingResource.setIdleState(false)
-            delay(2000) // simulate to loading
+                viewLifecycleOwner.lifecycleScope.launch {
+                    myIdlingResource.setIdleState(false)
+                    delay(2000) // simulate to api call
+                    myIdlingResource.setIdleState(true)
 
-            findNavController().safeNavigate(SplashFragmentDirections.actionSplashFragmentToHomeFragment("Hasan")).also {
-            myIdlingResource.setIdleState(true)
-            }
+                    myIdlingResource.setIdleState(false)
+                    delay(4000) // simulate to preparation of data
+                    myIdlingResource.setIdleState(true)
 
-            */
+                    myIdlingResource.setIdleState(false)
+                    findNavController().safeNavigate(SplashFragmentDirections.actionSplashFragmentToHomeFragment("Hasan")).also {
+                        myIdlingResource.setIdleState(true)
+                    }
+                }
 
-
-
-        // TODO : uncomment this code for myCountingIdlingResource concept
-
-        viewLifecycleOwner.lifecycleScope.launch {
-
-
-            myCountingIdlingResource.increment()
-            delay(2000) // simulate to api call
-            myCountingIdlingResource.decrement()
-
-            myCountingIdlingResource.increment()
-            delay(2000) // simulate to loading
-            findNavController().safeNavigate(SplashFragmentDirections.actionSplashFragmentToHomeFragment("Hasan")).also {
-                myCountingIdlingResource.decrement()
             }
         }
 
+
+
+
+
     }
-
-
-}

@@ -22,6 +22,7 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.lang.reflect.Field
 
 @RunWith(AndroidJUnit4::class)
 @MediumTest
@@ -69,8 +70,10 @@ class UiTests {
         val activityScenarioRule = ActivityScenario.launch(MainActivity::class.java)
 
         activityScenarioRule.onActivity { activity ->
+
             val navHostFragment = activity.supportFragmentManager.primaryNavigationFragment
             val splashFragment = navHostFragment?.childFragmentManager?.fragments?.find { it is SplashFragment } as? SplashFragment
+
             if (splashFragment != null) {
                 idleResources = splashFragment.getMyCountingIdlingResource()
                 IdlingRegistry.getInstance().register(idleResources)
