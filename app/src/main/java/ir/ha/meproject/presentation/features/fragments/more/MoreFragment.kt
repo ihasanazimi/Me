@@ -17,7 +17,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(FragmentMoreBinding::infl
     override fun uiConfig() {
         super.uiConfig()
 
-        binding.argumentsTV.text = "Args : " + args.argument
+        binding.argumentsTV.text = args.argument
     }
 
 

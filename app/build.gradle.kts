@@ -57,6 +57,12 @@ android {
         viewBinding = true
     }
 
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
+    }
+
 //    kapt {
 //        correctErrorTypes = true
 //    }
@@ -78,6 +84,9 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
     implementation("androidx.test.espresso.idling:idling-concurrent:3.4.0")
     androidTestImplementation("com.google.dagger:hilt-android-testing:2.51.1")
+    androidTestImplementation("androidx.fragment:fragment-testing:1.5.5")
+    androidTestImplementation("androidx.test:runner:1.5.0") // Make sure to have this dependency
+    androidTestImplementation("androidx.test.ext:junit:1.1.5") // Adjust version as needed
 
     // base
     implementation(libs.androidx.activity)

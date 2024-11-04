@@ -5,13 +5,19 @@
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="doSomething()">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
-      <SelectionState runConfigName="check_navigate_and_scenario_from_splash_to_lastFragment_is_correct_or_no_TEST()">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
       <SelectionState runConfigName="check_navigate_and_scenario_from_splash_to_lastFragment_is_correct_or_no_by_counting_TEST()">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+      <SelectionState runConfigName="check_navigate_and_scenario_from_splash_to_lastFragment_is_correct_or_no_by_counting_TEST() (1)">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+      <SelectionState runConfigName="check_navigate_and_scenario_from_splash_to_lastFragment_is_correct_or_no_by_counting_TEST() (2)">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+      <SelectionState runConfigName="launch_just_more_fragment_and_check_it_argument()">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+      <SelectionState runConfigName="launch_more_fragment_and_check_argument()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>

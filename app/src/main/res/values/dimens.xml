@@ -39,6 +39,7 @@
 
     <!-- btn or actionBar siz -->
     <dimen name="btnHeight_56">56dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 
 
 </resources>

@@ -18,7 +18,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     override fun uiConfig() {
         super.uiConfig()
 
-        binding.arguments.text = "Args : " + args.argument
+        binding.arguments.text = args.argument
     }
 
 
