@@ -25,6 +25,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(FragmentSplashBinding
         super.uiConfig()
 
         // todo : uncomment this code for myIdlingResource concept
+
         /*viewLifecycleOwner.lifecycleScope.launch {
 
             myIdlingResource.setIdleState(false)
@@ -36,13 +37,16 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(FragmentSplashBinding
             myIdlingResource.setIdleState(false)
             delay(2000) // simulate to loading
 
-            findNavController().safeNavigate(Temp1FragmentDirections.actionTemp1FragmentToTemp2Fragment("Hasan"))
+            findNavController().safeNavigate(SplashFragmentDirections.actionSplashFragmentToHomeFragment("Hasan")).also {
             myIdlingResource.setIdleState(true)
-        }*/
+            }
+
+            */
 
 
 
         // TODO : uncomment this code for myCountingIdlingResource concept
+
         viewLifecycleOwner.lifecycleScope.launch {
 
 
