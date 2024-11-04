@@ -19,7 +19,7 @@ import org.junit.Rule
 import org.junit.Test
 
 @MediumTest
-class MoreFragmentUiTest {
+class UiTests {
 
     val TAG = this::class.java.simpleName
 
