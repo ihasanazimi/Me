@@ -32,7 +32,9 @@ object TestNetworkModule {
     @Provides
     @Singleton
     fun provideRetrofit(mockWebServer: MockWebServer): Retrofit.Builder {
-        val mockUrl = mockWebServer.url("http://127.0.0.1/").toString() // Retrieve base URL in a safe way
+        val mockUrl = runBlocking(Dispatchers.IO) {
+            mockWebServer.url("http://127.0.0.1/").toString()
+        }
         return Retrofit.Builder()
             .baseUrl(mockUrl)
             .addConverterFactory(GsonConverterFactory.create())
