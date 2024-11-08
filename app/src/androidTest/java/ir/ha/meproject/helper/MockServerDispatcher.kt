@@ -1,11 +1,9 @@
-package ir.ha.meproject
+package ir.ha.meproject.helper
 
 import android.util.Log
-import ir.ha.meproject.helper.FileReader
 import okhttp3.mockwebserver.Dispatcher
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.RecordedRequest
-import java.io.InputStreamReader
 
 class MockWebServerDispatcher {
 

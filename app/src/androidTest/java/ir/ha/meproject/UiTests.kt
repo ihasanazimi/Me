@@ -20,13 +20,13 @@ import ir.ha.meproject.common.espresso_util.MyCountingIdlingResource
 import ir.ha.meproject.common.espresso_util.MyIdlingResource
 import ir.ha.meproject.common.espresso_util.getIdlingResource
 import ir.ha.meproject.di.NetworkModule
+import ir.ha.meproject.helper.MockWebServerDispatcher
 import ir.ha.meproject.presentation.MainActivity
 import ir.ha.meproject.presentation.features.fragments.more.MoreFragment
 import ir.ha.meproject.presentation.features.fragments.more.MoreFragmentArgs
 import ir.ha.meproject.presentation.features.fragments.splash.SplashFragment
 import ir.ha.meproject.presentation.test_activity.TestActivity
 import okhttp3.mockwebserver.MockWebServer
-import org.hamcrest.CoreMatchers.not
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
