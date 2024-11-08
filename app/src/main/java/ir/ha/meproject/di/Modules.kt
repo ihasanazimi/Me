@@ -10,8 +10,10 @@ import ir.ha.meproject.data.repository.SplashApiCallsRepositoryImpl
 import ir.ha.meproject.domain.SplashApiCallsUseCase
 import ir.ha.meproject.domain.SplashApiCallsUseCaseImpl
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton
 
@@ -23,14 +25,22 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideUrl(): String = "http://mocki.io/v1//"
+    fun provideUrl(): String = "http://mocki.io/v1/"
 
     @Named("regular_retrofit")
     @Provides
     @Singleton
     fun provideRetrofit(baseUrl : String) : Retrofit.Builder{
+
+        val client = OkHttpClient.Builder()
+            .connectTimeout(10, TimeUnit.SECONDS)   // Connection timeout
+            .readTimeout(10, TimeUnit.SECONDS)      // Read timeout
+            .writeTimeout(10, TimeUnit.SECONDS)     // Write timeout
+            .build()
+
         return Retrofit.Builder()
             .baseUrl(baseUrl)
+            .client(client)
             .addConverterFactory(GsonConverterFactory.create())
     }
 

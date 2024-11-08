@@ -18,11 +18,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(FragmentMoreBinding::infl
         super.uiConfig()
 
         binding.argumentsTV.text = args.argument
-    }
-
-
-    override fun listeners() {
-        super.listeners()
+        binding.intentValueTV.text = requireActivity().intent.getStringExtra("key") ?: ""
     }
 
 }

@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:textSize="24sp"
-        android:text="apis called ... please waite.."
+        android:text=""
         android:textColor="@color/white" />
 
 </FrameLayout>

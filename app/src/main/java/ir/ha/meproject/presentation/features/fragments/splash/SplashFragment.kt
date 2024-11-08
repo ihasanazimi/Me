@@ -37,6 +37,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(FragmentSplashBinding
                         Log.i(TAG, "observers ResponseState.Success: ${result.data?.name} ")
 
                         // do someThing logics..
+                        binding.tv.text = "Success"
 
                         findNavController().safeNavigate(SplashFragmentDirections.actionSplashFragmentToHomeFragment("Hasan")).also {
                             getIdlingResource<MyCountingIdlingResource>(IdlingResourcesKeys.SPLASH).decrement()
@@ -45,12 +46,14 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(FragmentSplashBinding
 
                     is ResponseState.Loading -> {
                         Log.i(TAG, "observers ResponseState.Loading : ")
+                        binding.tv.text = "Loading"
                     }
 
                     is ResponseState.Error -> {
                         Log.i(TAG, "observers ResponseState.Error: ")
                         Snackbar.make(binding.root, "ERROR", Snackbar.LENGTH_LONG).show()
-                        binding.tv.text = "ERROR"
+                        binding.tv.text = "Error"
+                        getIdlingResource<MyCountingIdlingResource>(IdlingResourcesKeys.SPLASH).decrement()
                     }
 
                 }

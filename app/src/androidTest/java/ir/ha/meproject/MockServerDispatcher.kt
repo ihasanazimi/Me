@@ -1,5 +1,6 @@
 package ir.ha.meproject
 
+import android.util.Log
 import ir.ha.meproject.helper.FileReader
 import okhttp3.mockwebserver.Dispatcher
 import okhttp3.mockwebserver.MockResponse
@@ -8,8 +9,11 @@ import java.io.InputStreamReader
 
 class MockWebServerDispatcher {
 
+    private val TAG = this::class.java.simpleName
+
     internal inner class RequestDispatcher : Dispatcher() {
         override fun dispatch(request: RecordedRequest): MockResponse {
+            Log.i(TAG, "RequestDispatcher - dispatch: ${request.path} ")
             return when (request.path) {
                 "/5be5839a-d088-483f-9270-33df02550b0c" ->
                     MockResponse().setResponseCode(200)
@@ -21,8 +25,13 @@ class MockWebServerDispatcher {
 
     internal inner class ErrorDispatcher : Dispatcher() {
         override fun dispatch(request: RecordedRequest): MockResponse {
-            return MockResponse().setResponseCode(400)
-                .setBody("")
+            Log.i(TAG, "ErrorDispatcher dispatch: ${request.path} ")
+            return when (request.path) {
+                "/5be5839a-d088-483f-9270-33df02550b0c" ->
+                    MockResponse().setResponseCode(404)
+                        .setBody("")
+                else -> MockResponse().setResponseCode(400)
+            }
         }
     }
 }

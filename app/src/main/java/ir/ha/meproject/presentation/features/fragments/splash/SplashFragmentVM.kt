@@ -6,6 +6,7 @@ import ir.ha.meproject.common.base.BaseViewModel
 import ir.ha.meproject.data.model.ResponseState
 import ir.ha.meproject.data.model.SampleObject
 import ir.ha.meproject.domain.SplashApiCallsUseCase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
@@ -21,7 +22,7 @@ class SplashFragmentVM @Inject constructor(
     val apiCallResult = _apiCallResult.asSharedFlow()
 
     fun callApiCallResult(){
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             splashApiCallsUseCase.apiCall1().collect{
                 _apiCallResult.emit(it)
             }

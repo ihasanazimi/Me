@@ -1,7 +1,9 @@
 package ir.ha.meproject
 
+import android.content.Intent
 import android.util.Log
 import androidx.test.core.app.ActivityScenario
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.click
@@ -24,6 +26,7 @@ import ir.ha.meproject.presentation.features.fragments.more.MoreFragmentArgs
 import ir.ha.meproject.presentation.features.fragments.splash.SplashFragment
 import ir.ha.meproject.presentation.test_activity.TestActivity
 import okhttp3.mockwebserver.MockWebServer
+import org.hamcrest.CoreMatchers.not
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -84,7 +87,7 @@ class UiTests {
     }
 
     @Test
-    fun integration_between_fragments_TEST_2() {
+    fun integration_between_splash_api_call_happen_successfully() {
 
 
         var idleResources: MyCountingIdlingResource? = null
@@ -103,11 +106,43 @@ class UiTests {
             }
         }
 
-        onView(withId(R.id.goToNextPage)).check(matches(isDisplayed()))
-        onView(withId(R.id.goToNextPage)).perform(click())
+        onView(withId(R.id.tv)).check(matches(withText("Error")))
         IdlingRegistry.getInstance().unregister(idleResources)
         activityScenarioRule.close()
     }
+
+
+
+    @Test
+    fun integration_between_splash_api_call_happen_error() {
+        var idleResources: MyCountingIdlingResource? = null
+
+        mockWebServer.dispatcher = MockWebServerDispatcher().ErrorDispatcher()
+        val activityScenarioRule = ActivityScenario.launch(MainActivity::class.java)
+
+        activityScenarioRule.onActivity { activity ->
+            val navHostFragment = activity.supportFragmentManager.primaryNavigationFragment
+            val splashFragment = navHostFragment?.childFragmentManager?.fragments?.find { it is SplashFragment } as? SplashFragment
+
+            if (splashFragment != null) {
+                idleResources = getIdlingResource(IdlingResourcesKeys.SPLASH) as MyCountingIdlingResource
+                IdlingRegistry.getInstance().register(idleResources)
+            } else {
+                Log.e("Test", "SplashFragment not found")
+            }
+        }
+
+        Log.d("Test", "Performing view assertions for error display")
+        onView(withId(R.id.tv)).check(matches(isDisplayed()))
+        onView(withId(R.id.tv)).check(matches(withText("Error")))
+
+        // Unregister IdlingResource after the test
+        IdlingRegistry.getInstance().unregister(idleResources)
+        activityScenarioRule.close()
+    }
+
+
+
 
     @Test
     fun launch_more_fragment_and_check_it_argument_TEST() {
@@ -117,10 +152,14 @@ class UiTests {
             IdlingRegistry.getInstance().register(this)
         }
 
+        val sampleIntentData = "sample intent data"
         val argumentValue = "Sample Argument"
         val args = MoreFragmentArgs(argumentValue).toBundle()
 
-        val activityScenario = ActivityScenario.launch(TestActivity::class.java)
+        val intent = Intent(ApplicationProvider.getApplicationContext(),TestActivity::class.java)
+        intent.putExtra("key", sampleIntentData)
+
+        val activityScenario = ActivityScenario.launch<TestActivity>(intent)
         activityScenario.onActivity { activity ->
             val fragment = MoreFragment().apply {
                 arguments = args
@@ -131,6 +170,7 @@ class UiTests {
         }
         myIdlingResource.setIdleState(true)
         onView(withId(R.id.argumentsTV)).check(matches(withText(argumentValue)))
+        onView(withId(R.id.intentValueTV)).check(matches(withText(sampleIntentData)))
         IdlingRegistry.getInstance().unregister(myIdlingResource)
         activityScenario.close()
     }

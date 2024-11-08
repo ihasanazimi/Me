@@ -5,19 +5,13 @@
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="check_navigate_and_scenario_from_splash_to_lastFragment_is_correct_or_no_by_counting_TEST() (2)">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
-      <SelectionState runConfigName="UiTests">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
-      <SelectionState runConfigName="check_navigate_and_scenario_from_splash_to_lastFragment_is_correct_or_no_by_simpleIdleResource_TEST()">
+      <SelectionState runConfigName="launch_more_fragment_and_check_it_argument_TEST()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
       <SelectionState runConfigName="integration_between_fragments_TEST_2()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="launch_more_fragment_and_check_it_argument_TEST()">
+      <SelectionState runConfigName="integration_between_splash_api_call_happen_error()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>

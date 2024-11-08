@@ -40,15 +40,22 @@ class SplashApiCallsRepositoryImpl @Inject constructor(val apiServices: ApiServi
             emit(ResponseState.Loading)
             myIdlingResource.increment()
             val response = apiServices.apiCall1()
-            if (response.isSuccessful){
-                response.body()?.result?.data?.let {
-                    emit(ResponseState.Success(it))
+            when(response.isSuccessful){
+
+                true -> {
+                    response.body()?.result?.data?.let {
+                        emit(ResponseState.Success(it))
+                    }
+                }
+
+                else -> {
+                    emit(ResponseState.Error(LocalException()))
                 }
             }
         } catch (e : Exception){
             Log.i(TAG, "apiCall1: ${e.message} ")
             emit(ResponseState.Error(LocalException()))
-        }
+        }!!
     }
 }
 
