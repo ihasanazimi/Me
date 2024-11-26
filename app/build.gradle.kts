@@ -17,9 +17,7 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "ir.ha.meproject.helper.CustomTestRunner"
-
     }
 
     buildTypes {
@@ -27,25 +25,16 @@ android {
             isMinifyEnabled = true
             isDebuggable = false
             isShrinkResources = true
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             resValue("string", "clear_text_config","false")
         }
-
         debug {
             isMinifyEnabled = false
             isDebuggable = true
             isShrinkResources = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             enableAndroidTestCoverage = true
             enableUnitTestCoverage = true
-
             resValue("string", "clear_text_config","true")
         }
     }
@@ -78,6 +67,7 @@ android {
             excludes += "META-INF/NOTICE.md"
             excludes += "META-INF/NOTICE"
             excludes += "META-INF/NOTICE.txt"
+            excludes += "META-INF/LICENSE-notice.md"
         }
     }
 
