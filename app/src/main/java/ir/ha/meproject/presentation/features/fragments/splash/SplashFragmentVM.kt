@@ -4,7 +4,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ir.ha.meproject.common.base.BaseViewModel
 import ir.ha.meproject.data.model.ResponseState
-import ir.ha.meproject.data.model.SampleObject
+import ir.ha.meproject.data.model.SampleEntity
 import ir.ha.meproject.di.CoroutineDispatchers
 import ir.ha.meproject.domain.ApiCallsUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -18,7 +18,7 @@ class SplashFragmentVM @Inject constructor(
     private val coroutineDispatchers: CoroutineDispatchers
 ): BaseViewModel() {
 
-    private val _apiCallResult = MutableSharedFlow<ResponseState<SampleObject>>()
+    private val _apiCallResult = MutableSharedFlow<ResponseState<SampleEntity>>()
     val apiCallResult = _apiCallResult
 
     fun apiCall(){

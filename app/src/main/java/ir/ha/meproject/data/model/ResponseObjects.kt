@@ -3,15 +3,6 @@ package ir.ha.meproject.data.model
 import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 
-
-@Keep
-data class SampleObject(
-    @SerializedName("id") val id: Int,
-    @SerializedName("name") val name: String,
-    @SerializedName("description") val description: String
-)
-
-
 @Keep
 data class BaseResponse<T>(
     @SerializedName("status") var status: Status = Status(),
@@ -34,8 +25,6 @@ data class Status(
         return code in 200..299
     }
 }
-
-
 
 @Keep
 sealed class ResponseState<out T>(

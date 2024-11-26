@@ -6,7 +6,7 @@ import ir.ha.meproject.common.espresso_util.MyCountingIdlingResource
 import ir.ha.meproject.common.espresso_util.createAndReturnIdlingResource
 import ir.ha.meproject.data.model.LocalException
 import ir.ha.meproject.data.model.ResponseState
-import ir.ha.meproject.data.model.SampleObject
+import ir.ha.meproject.data.model.SampleEntity
 import ir.ha.meproject.data.remote.ApiServices
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -17,7 +17,7 @@ import javax.inject.Inject
 interface ApiCallsRepository {
 
 
-    suspend fun apiCall1(): Flow<ResponseState<SampleObject>>
+    suspend fun apiCall1(): Flow<ResponseState<SampleEntity>>
 
 }
 

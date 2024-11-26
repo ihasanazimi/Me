@@ -11,7 +11,6 @@ interface SampleUseCase {
 
     fun isOddNumber(number : Int) : Boolean
 
-
     fun isEvenNumber(number : Int) : Boolean
 
     fun getNumberByAnswers() : List<Any>
