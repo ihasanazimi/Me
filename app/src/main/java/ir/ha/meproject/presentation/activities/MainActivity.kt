@@ -1,4 +1,4 @@
-package ir.ha.meproject.presentation
+package ir.ha.meproject.presentation.activities
 
 import android.os.StrictMode
 import android.os.StrictMode.ThreadPolicy

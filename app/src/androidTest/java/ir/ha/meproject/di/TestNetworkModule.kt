@@ -25,7 +25,6 @@ import javax.net.ssl.SSLSession
 )
 object TestNetworkModule {
 
-
     @Provides
     @Singleton
     fun provideUrl(): String = "http://localhost:8080/"
@@ -33,11 +32,6 @@ object TestNetworkModule {
     @Provides
     @Singleton
     fun provideMockWebServer(): MockWebServer = MockWebServer()
-
-
-    @Provides
-    @Singleton
-    fun provideContext(@ApplicationContext appContext: Context): Context = appContext
 
 
     @Singleton

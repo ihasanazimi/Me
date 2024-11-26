@@ -2,24 +2,26 @@ package ir.ha.meproject.di
 
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import dagger.hilt.testing.TestInstallIn
 import ir.ha.meproject.data.remote.ApiServices
 import ir.ha.meproject.data.repository.SplashApiCallsRepository
 import ir.ha.meproject.data.repository.SplashApiCallsRepositoryImpl
-import ir.ha.meproject.data.repository.UserRepository
-import ir.ha.meproject.data.repository.UserRepositoryImpl
 import javax.inject.Singleton
 
 
 @Module
-@InstallIn(SingletonComponent::class)
-object RepositoryModules{
+@TestInstallIn(
+    components = [SingletonComponent::class],
+    replaces = [RepositoryModules::class]
+)
+object TestRepositoryModules {
 
     @Provides
     @Singleton
     fun provideSplashApiCallsRepository(apiServices: ApiServices) : SplashApiCallsRepository {
         return SplashApiCallsRepositoryImpl(apiServices)
     }
+
 
 }

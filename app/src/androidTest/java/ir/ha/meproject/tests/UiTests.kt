@@ -22,7 +22,7 @@ import ir.ha.meproject.common.espresso_util.MyIdlingResource
 import ir.ha.meproject.common.espresso_util.getIdlingResource
 import ir.ha.meproject.di.NetworkModule
 import ir.ha.meproject.helper.MockWebServerDispatcher
-import ir.ha.meproject.presentation.MainActivity
+import ir.ha.meproject.presentation.activities.MainActivity
 import ir.ha.meproject.presentation.features.fragments.more.MoreFragment
 import ir.ha.meproject.presentation.features.fragments.more.MoreFragmentArgs
 import ir.ha.meproject.presentation.features.fragments.splash.SplashFragment
