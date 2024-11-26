@@ -22,7 +22,7 @@ import javax.net.ssl.SSLSession
     components = [SingletonComponent::class],
     replaces = [NetworkModule::class]
 )
-object TestNetworkModule {
+object NetworkModuleTest {
 
     @Provides
     @Singleton
