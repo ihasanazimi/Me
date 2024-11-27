@@ -1,9 +1,15 @@
 package ir.ha.meproject.data.repository
 
+import android.content.Context
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import ir.ha.meproject.common.file.AssetHelper
 import ir.ha.meproject.data.model.UserEntity
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
+import java.lang.reflect.Type;
+
 
 interface UserRepository {
     suspend fun getAllUsers() : Flow<List<UserEntity>>
@@ -11,20 +17,14 @@ interface UserRepository {
 
 
 
-class UserRepositoryImpl : UserRepository {
+class UserRepositoryImpl @Inject constructor(
+    private val context: Context
+) : UserRepository {
 
     override suspend fun getAllUsers(): Flow<List<UserEntity>> = flow {
-
-        delay(5000)
-
-        emit(listOf(
-            UserEntity("Omid", "Sadr", "30", "USA", "New York"),
-            UserEntity("Pejman", "Pajoohi", "25", "Canada", "Toronto"),
-            UserEntity("Alireza", "Ganbari", "40", "Iran", "Tehran"),
-            UserEntity("Hasan", "Azimi", "35", "Iran", "Tehran"),
-            UserEntity("Sobhan", "Hasanvand", "32", "Japan", "Tokyo"),
-            UserEntity("Parsia", "Dolati", "45", "France", "Paris"),
-            UserEntity("Zahra", "Eslami", "32", "India", "Mumbai")
-        ))
+        val json = AssetHelper.readJsonFromAssets(context,"Users.json")
+        val userListType: Type = object : TypeToken<List<UserEntity?>?>() {}.type
+        val users = Gson().fromJson<List<UserEntity>>(json,userListType)
+        emit(users)
     }
 }

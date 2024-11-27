@@ -1,5 +1,6 @@
 package ir.ha.meproject.domain
 
+import ir.ha.meproject.data.repository.NumberRepository
 import ir.ha.meproject.data.repository.NumberRepositoryImpl
 import javax.inject.Inject
 
@@ -20,7 +21,7 @@ interface NumberUseCase {
 
 
 class NumberUseCaseImpl @Inject constructor(
-    private val numberRepositoryImpl: NumberRepositoryImpl
+    private val numberRepositoryImpl: NumberRepository
 ) : NumberUseCase {
 
     override fun getRandomNumber(): Int {

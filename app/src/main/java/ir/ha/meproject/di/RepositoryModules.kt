@@ -1,5 +1,6 @@
 package ir.ha.meproject.di
 
+import android.content.Context
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -34,8 +35,8 @@ object RepositoryModules{
 
     @Provides
     @Singleton
-    fun provideUserRepository() : UserRepository {
-        return UserRepositoryImpl()
+    fun provideUserRepository(context: Context) : UserRepository {
+        return UserRepositoryImpl(context)
     }
 
     @Singleton

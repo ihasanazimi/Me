@@ -51,7 +51,11 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(FragmentSplashBinding
 
                     is ResponseState.Error -> {
                         Log.i(TAG, "observers ResponseState.Error: ")
-                        Snackbar.make(binding.root, "ERROR", Snackbar.LENGTH_LONG).show()
+                        val snackBar = Snackbar.make(binding.root, "ERROR", Snackbar.LENGTH_LONG)
+                        snackBar.setAction("retry",{
+                            viewModel.apiCall()
+                        })
+                        snackBar.show()
                         binding.tv.text = "Error"
                         getIdlingResource<MyCountingIdlingResource>(IdlingResourcesKeys.SPLASH).decrement()
                     }
