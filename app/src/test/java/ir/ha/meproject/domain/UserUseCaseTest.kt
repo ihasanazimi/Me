@@ -1,6 +1,9 @@
 package ir.ha.meproject.domain
 
 
+import android.content.Context
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.platform.app.InstrumentationRegistry
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.junit4.MockKRule
@@ -31,7 +34,8 @@ import kotlin.test.assertTrue
 
 class UserEntityUseCaseTest1 {
 
-    private var userUseCase = spyk(UserUseCaseImpl(UserRepositoryImpl()))
+    private val context: Context = ApplicationProvider.getApplicationContext<Context?>().applicationContext
+    private var userUseCase = spyk(UserUseCaseImpl(UserRepositoryImpl(context)))
     private var mockUserEntities = arrayListOf<UserEntity>()
 
     @Before

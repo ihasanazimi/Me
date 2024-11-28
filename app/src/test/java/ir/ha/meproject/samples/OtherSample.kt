@@ -4,6 +4,7 @@ import io.mockk.confirmVerified
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.spyk
+import io.mockk.verify
 import ir.ha.meproject.helper.BaseTest
 import junit.framework.TestCase.assertEquals
 import org.junit.Before
@@ -11,17 +12,23 @@ import kotlin.test.Test
 
 
 class StringUtil(private val operators: StringOperators) {
-    fun addSomeWord(a: String) = operators.addWord(a)
+
+    fun getFirstName(a: String): String {
+        return operators.getName(a)
+    }
+
 }
 
 object StringOperators {
-    fun addWord(word: String) = "this is a test for -> $word"
+
+    fun getName(name: String) = name
+
 }
 
 class Example1 {
 
-    lateinit var stringUtil: StringUtil
-    lateinit var operators: StringOperators
+    private lateinit var stringUtil: StringUtil
+    private lateinit var operators: StringOperators
 
     @Before
     fun onSetup() {
@@ -31,11 +38,10 @@ class Example1 {
 
     @org.junit.Test
     fun addName_and_printValue() {
-        val name = "Farzad"
-        every { StringOperators.addWord(name) } returns name
-        val result = stringUtil.addSomeWord(name)
+        every { operators.getName("Farzad") } returns "Farzad"
+        val result = stringUtil.getFirstName("Farzad")
         println("result value is : $result")
-        kotlin.test.assertEquals(result, name)
+        kotlin.test.assertEquals(result, "Farzad")
 
     }
 }
@@ -53,9 +59,9 @@ class Example2 : BaseTest() {
     @org.junit.Test
     fun addName_and_printValue() {
         val name = "Farzad"
-        val result = stringUtil.addSomeWord(name)
+        val result = stringUtil.getFirstName(name)
         println("result value is : $result")
-        kotlin.test.assertEquals("this is a test for -> $name", result)
+        kotlin.test.assertEquals(name, result)
     }
 }
 
@@ -81,6 +87,7 @@ class MyClassTest {
         val myClass = MyClass(dependencyMock)
         val result = myClass.doSomething()
         assertEquals("processed mocked data", result)
+        verify(exactly = 1) { myClass.doSomething() }
         confirmVerified()
     }
 }
