@@ -11,6 +11,7 @@ import io.mockk.mockk
 import io.mockk.spyk
 import ir.ha.meproject.data.model.UserEntity
 import ir.ha.meproject.data.repository.UserRepositoryImpl
+import ir.ha.meproject.helper.BaseTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.delay
@@ -32,14 +33,14 @@ import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 
-class UserEntityUseCaseTest1 {
+class UserEntityUseCaseTest1 : BaseTest(){
 
     private val context: Context = ApplicationProvider.getApplicationContext<Context?>().applicationContext
     private var userUseCase = spyk(UserUseCaseImpl(UserRepositoryImpl(context)))
     private var mockUserEntities = arrayListOf<UserEntity>()
 
-    @Before
-    fun setUp() {
+    override fun setup() {
+        super.setup()
         mockUserEntities.addAll(
             arrayListOf(
                 UserEntity("Omid", "Sadr", "30", "USA", "New York"),
@@ -53,8 +54,8 @@ class UserEntityUseCaseTest1 {
         )
     }
 
-    @After
-    fun reset() {
+    override fun tearDown() {
+        super.tearDown()
         // Reset the dispatcher
         mockUserEntities.clear()
     }
@@ -69,6 +70,7 @@ class UserEntityUseCaseTest1 {
     }
 
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun testCoroutineExecution() = runTest {
         var result = 0
