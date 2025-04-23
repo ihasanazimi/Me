@@ -6,14 +6,14 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <ir.ha.meproject.common.views.CircleProgress
+    <ir.hasanazimi.me.common.views.CircleProgress
         android:id="@+id/progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center" />
 
 
-    <ir.ha.meproject.common.views.LoadingButton
+    <ir.hasanazimi.me.common.views.LoadingButton
         android:id="@+id/loadingBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

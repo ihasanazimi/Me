@@ -8,8 +8,8 @@ import android.widget.RelativeLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.google.android.material.button.MaterialButton
-import ir.ha.meproject.R
-import ir.ha.meproject.databinding.LayoutLoadingButtonBinding
+import ir.hasanazimi.me.R
+import ir.hasanazimi.me.databinding.LayoutLoadingButtonBinding
 
 class LoadingButton(context: Context, attrs: AttributeSet?) : RelativeLayout(context, attrs) {
 
